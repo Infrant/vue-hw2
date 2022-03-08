@@ -1,6 +1,12 @@
 <template>
   <div class="paginatorWrapper">
-    <button class="paginatorEl" @click="setPageByArrow('-')"> &lt;</button>
+    <button
+        class="paginatorEl"
+        @click="setPageByArrow('-')"
+        :disabled="currentPage == '1'"
+    >
+      &lt;
+    </button>
     <button
         v-for="page in getTotalPagesCount"
         :key="page"
@@ -9,7 +15,13 @@
     >
       {{ page }}
     </button>
-    <button class="paginatorEl" @click="setPageByArrow('+')"> &gt;</button>
+    <button
+        class="paginatorEl"
+        @click="setPageByArrow('+')"
+        :disabled="currentPage == getTotalPagesCount"
+    >
+      &gt;
+    </button>
   </div>
 </template>
 
