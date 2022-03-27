@@ -1,7 +1,11 @@
 <template>
   <form class="formWrapper" @submit.prevent="submitForm">
     <input type="text" v-model.trim="date" class="formEl" placeholder="Date">
-    <input type="text" v-model.trim="category" class="formEl" placeholder="Category">
+    <select v-model="category" class="formEl">
+      <option v-for="option in this.$store.getters.getCategoryList" :value="option" :key="option">
+        {{ option }}
+      </option>
+    </select>
     <input type="text" v-model.trim="value" class="formEl" placeholder="Value">
     <span v-show="!category || !value" class="errorText">* Category и Value не должны быть пустыми</span>
     <button :disabled="!category || !value" class="saveBtn">Save</button>
@@ -44,6 +48,11 @@ export default {
       const year = newDate.getFullYear();
 
       return `${day < 10 ? '0' + day : day}.${month < 10 ? '0' + month : month}.${year}`
+    }
+  },
+  mounted() {
+    if (!this.$store.getters.getCategoryList.length) {
+      this.$store.dispatch('loadCategories')
     }
   }
 }
