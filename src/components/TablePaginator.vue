@@ -5,6 +5,7 @@
         @click="setPageByArrow('-')"
         :disabled="currentPage == '1'"
     >
+      &lt;
     </button>
     <button
         v-for="page in getTotalPagesCount"
