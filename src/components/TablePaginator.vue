@@ -51,13 +51,13 @@ export default {
     },
     setPageByArrow(symbol) {
       let page;
-      const {currentPage, getTotalPagesCount} = this;
+      const {currentPage} = this;
       switch (symbol) {
         case '+':
-          page = currentPage < getTotalPagesCount ? currentPage + 1 : currentPage;
+          page = currentPage + 1;
           break;
         case '-':
-          page = currentPage >= 2 ? currentPage - 1 : currentPage;
+          page = currentPage - 1;
           break;
       }
       this.currentPage = page;
