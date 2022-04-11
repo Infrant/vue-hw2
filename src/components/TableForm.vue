@@ -17,19 +17,27 @@
 export default {
   name: 'TableForm',
   components: {},
-  props: {
-    tableLength: Number
-  },
+  props: {},
   data() {
     return {
       date: '',
       category: '',
       value: '',
+      data: {},
+      hasParams: false
     }
   },
   methods: {
     submitForm() {
-      const id = this.tableLength + 1;
+      this.handleFormData();
+      if (this.hasParams) {
+        this.$store.commit('addTableData', this.data)
+        this.$router.push({ name: 'costs'})
+      }
+      this.$emit('addData', this.data);
+    },
+    handleFormData() {
+      const id = Date.now();
       const {date, category, value} = this;
       const data = {
         date: date || this.getCurrentDate,
@@ -37,7 +45,7 @@ export default {
         value,
         id
       };
-      this.$emit('addData', data);
+      this.data = data;
     }
   },
   computed: {
@@ -51,8 +59,22 @@ export default {
     }
   },
   mounted() {
+    /* eslint-disable */
     if (!this.$store.getters.getCategoryList.length) {
       this.$store.dispatch('loadCategories')
+    }
+    const hasParams = Object.keys(this.$route?.params).length;
+    if (hasParams) {
+      this.hasParams = true;
+      const {category, value} = this.$route.params;
+      this.category = category;
+      this.value = value;
+    }
+
+    if (this.category && this.value) {
+      this.handleFormData();
+      this.$store.commit('addTableData', this.data)
+      this.$router.push({ name: 'costs'})
     }
   }
 }
