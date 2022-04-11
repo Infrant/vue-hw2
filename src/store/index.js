@@ -7,7 +7,8 @@ export default new Vuex.Store({
   state: {
     tableData: [],
     headerData: ['#', "Date", 'Category', "Value"],
-    categoryList: []
+    categoryList: [],
+    isLoaded: false
   },
   getters: {
     getTableData: state => state.tableData,
@@ -15,9 +16,11 @@ export default new Vuex.Store({
       return state.tableData.reduce((acc, el) => acc + +el.value, 0)
     },
     getHeaderData: state => state.headerData,
-    getCategoryList: state => state.categoryList
+    getCategoryList: state => state.categoryList,
+    getDataStatus: state => state.isLoaded
   },
   mutations: {
+    /* eslint-disable */
     setTableData(state, payload) {
       state.tableData = payload;
     },
@@ -30,53 +33,29 @@ export default new Vuex.Store({
       }
       state.categoryList.push(...payload)
     },
+    setFetchDataStatus(state, payload) {
+      state.isLoaded = payload
+    }
   },
   actions: {
     fetchData({commit}) {
       return new Promise((resolve) => {
         setTimeout(() => {
-          resolve([
-            {
-              id: 1,
+          const tableData = [];
+          for (let i = 0; i < 10; i++) {
+            tableData.push({
+              id: Date.now() + i,
               date: '08.03.2022',
               category: 'Food',
               value: '100'
-            },
-            {
-              id: 2,
-              date: '08.03.2022',
-              category: 'Transport',
-              value: '100'
-            },
-            {
-              id: 3,
-              date: '08.03.2022',
-              category: 'Clothing',
-              value: '100'
-            },
-            {
-              id: 4,
-              date: '08.03.2022',
-              category: 'Food',
-              value: '100'
-            },
-            {
-              id: 5,
-              date: '08.03.2022',
-              category: 'Transport',
-              value: '100'
-            },
-            {
-              id: 6,
-              date: '08.03.2022',
-              category: 'Clothing',
-              value: '100'
-            }
-          ])
-        }, 1000)
+            })
+          }
+          resolve(tableData)
+        }, 0)
       })
           .then(res => {
-            commit('setTableData', res)
+            commit('setTableData', res);
+            commit('setFetchDataStatus', true)
           })
     },
     loadCategories({commit}) {
