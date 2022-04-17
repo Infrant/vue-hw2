@@ -29,7 +29,7 @@ const routes = [
     }
   },
   {
-    path: '/form/:category/:value?',
+    path: '/form/:category',
     name: 'form',
     component: TableForm,
     meta: {

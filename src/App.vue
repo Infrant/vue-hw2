@@ -6,11 +6,18 @@
       <router-link to="/costs">Costs</router-link>
     </nav>
     <router-view/>
+    <transition name="fade">
+      <ContextMenu />
+    </transition>
   </div>
 </template>
 
 <script>
+import ContextMenu from './components/ContextMenu.vue';
 export default {
+  components: {
+    ContextMenu
+  },
   mounted() {
     if (this.$store.getters.getDataStatus) return;
     this.$store.dispatch('fetchData')
