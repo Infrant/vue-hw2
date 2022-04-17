@@ -23,16 +23,28 @@ export default {
       date: '',
       category: '',
       value: '',
+      id: 0,
       data: {},
-      hasParams: false
+      hasParams: false,
+      editing: false,
     }
   },
   methods: {
     submitForm() {
+      if (this.editing) {
+        const data = {
+          date: this.date,
+          category: this.category,
+          value: this.value,
+          id: this.id
+        }
+        this.$store.commit('editElement', data);
+        this.toCosts();
+      }
       this.handleFormData();
       if (this.hasParams) {
         this.$store.commit('addTableData', this.data)
-        this.$router.push({ name: 'costs'})
+        this.toCosts();
       }
       this.$emit('addData', this.data);
     },
@@ -46,6 +58,9 @@ export default {
         id
       };
       this.data = data;
+    },
+    toCosts() {
+      this.$router.push({ name: 'costs'})
     }
   },
   computed: {
@@ -64,9 +79,22 @@ export default {
       this.$store.dispatch('loadCategories')
     }
     const hasParams = Object.keys(this.$route?.params).length;
+    const isEditing = this.$route?.query.isEditing;
+
+    if (isEditing) {
+      const {category} = this.$route.params;
+      const {value, id, date} = this.$route.query;
+      this.category = category;
+      this.value = value;
+      this.id = id;
+      this.date = date;
+      this.editing = true;
+      return;
+    }
     if (hasParams) {
       this.hasParams = true;
-      const {category, value} = this.$route.params;
+      const {category} = this.$route.params;
+      const {value} = this.$route.query;
       this.category = category;
       this.value = value;
     }

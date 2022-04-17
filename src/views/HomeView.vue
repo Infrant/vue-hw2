@@ -3,7 +3,8 @@
     <router-link
         :to="{
         name: 'form',
-        params: { category: 'Clothing', value: 500},
+        params: { category: 'Clothing'},
+        query: {value: 500}
       }"
     >
       Clothing 500
@@ -13,7 +14,8 @@
     <router-link
         :to="{
         name: 'form',
-        params: { category: 'Transport', value: 100 },
+        params: { category: 'Transport' },
+        query: {value: 100}
       }"
     >
       Transport 100

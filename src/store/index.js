@@ -27,6 +27,14 @@ export default new Vuex.Store({
     addTableData(state, payload) {
       state.tableData.push(payload);
     },
+    deleteElement(state, payload) {
+      const idx = state.tableData.findIndex(({id}) => id == payload);
+      state.tableData.splice(idx, 1);
+    },
+    editElement(state, payload) {
+      const idx = state.tableData.findIndex(({id}) => id == payload.id);
+      state.tableData[idx] = payload;
+    },
     setCategories(state, payload) {
       if (!Array.isArray(payload)) {
         payload = [payload]
