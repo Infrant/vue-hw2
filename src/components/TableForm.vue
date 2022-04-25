@@ -1,15 +1,21 @@
 <template>
-  <form class="formWrapper" @submit.prevent="submitForm">
-    <input type="text" v-model.trim="date" class="formEl" placeholder="Date">
-    <select v-model="category" class="formEl">
-      <option v-for="option in this.$store.getters.getCategoryList" :value="option" :key="option">
-        {{ option }}
-      </option>
-    </select>
-    <input type="text" v-model.trim="value" class="formEl" placeholder="Value">
-    <span v-show="!category || !value" class="errorText">* Category и Value не должны быть пустыми</span>
-    <button :disabled="!category || !value" class="saveBtn">Save</button>
-  </form>
+  <v-card class="text-left pa-8">
+    <form @submit.prevent="submitForm">
+<!--      <input type="text" v-model.trim="date" class="formEl" placeholder="Date">-->
+<!--      <select v-model="category" class="formEl">-->
+<!--        <option v-for="option in this.$store.getters.getCategoryList" :value="option" :key="option">-->
+<!--          {{ option }}-->
+<!--        </option>-->
+<!--      </select>-->
+<!--      <input type="text" v-model.trim="value" class="formEl" placeholder="Value">-->
+      <!--      <button :disabled="!category || !value" class="saveBtn">Save</button>-->
+      <v-text-field v-model.trim="date" label="Date"/>
+      <v-select v-model="category" label="Category" :items="this.$store.getters.getCategoryList"/>
+      <v-text-field v-model.trim="value" label="Value"/>
+      <div v-show="!category || !value" class="errorText">* Category и Value не должны быть пустыми</div>
+      <v-btn :disabled="!category || !value" color="teal" @click="submitForm">Save</v-btn>
+    </form>
+  </v-card>
 </template>
 
 <script>
