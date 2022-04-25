@@ -1,13 +1,23 @@
 <template>
-  <div class="headerWrapper">
-    <div
-        v-for="caption in headerData"
-        :key="caption"
-        class="headerEl"
-    >
-      {{ caption }}
-    </div>
-  </div>
+  <v-container>
+    <v-row>
+      <v-col
+          v-for="caption in headerData"
+          :key="caption"
+        >
+        {{caption}}
+      </v-col>
+    </v-row>
+  </v-container>
+<!--  <div class="headerWrapper">-->
+<!--    <div-->
+<!--        v-for="caption in headerData"-->
+<!--        :key="caption"-->
+<!--        class="headerEl"-->
+<!--    >-->
+<!--      {{ caption }}-->
+<!--    </div>-->
+<!--  </div>-->
 </template>
 
 <script>

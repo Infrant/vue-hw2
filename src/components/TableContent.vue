@@ -1,25 +1,36 @@
 <template>
-  <div>
-    <div
+  <v-container>
+    <v-row
         v-for="(item) in tableData"
         :key="item.id"
-        class="contentWrapper"
     >
-      <span>{{ item.id }}</span>
-      <span>{{ item.date }}</span>
-      <span>{{ item.category }}</span>
-      <span>
-        {{ item.value }}
-        <span
-            class="contextMenu"
-            @click="onClickContextItem($event, item)"
+      <v-col>{{item.id}}</v-col>
+      <v-col>{{item.date}}</v-col>
+      <v-col>{{item.category}}</v-col>
+      <v-col>{{item.value}}</v-col>
+    </v-row>
+  </v-container>
+<!--  <div>-->
+<!--    <div-->
+<!--        v-for="(item) in tableData"-->
+<!--        :key="item.id"-->
+<!--        class="contentWrapper"-->
+<!--    >-->
+<!--      <span>{{ item.id }}</span>-->
+<!--      <span>{{ item.date }}</span>-->
+<!--      <span>{{ item.category }}</span>-->
+<!--      <span>-->
+<!--        {{ item.value }}-->
+<!--        <span-->
+<!--            class="contextMenu"-->
+<!--            @click="onClickContextItem($event, item)"-->
 
-        >
-          ...
-        </span>
-      </span>
-    </div>
-  </div>
+<!--        >-->
+<!--          ...-->
+<!--        </span>-->
+<!--      </span>-->
+<!--    </div>-->
+<!--  </div>-->
 </template>
 
 <script>
