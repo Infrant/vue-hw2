@@ -1,23 +1,13 @@
 <template>
   <v-container>
     <v-row>
-      <v-col
-          v-for="caption in headerData"
-          :key="caption"
-        >
-        {{caption}}
-      </v-col>
+      <v-col class="col-4">{{ headerData[0] }}</v-col>
+      <v-col class="col-3">{{ headerData[1] }}</v-col>
+      <v-col class="col-3">{{ headerData[2] }}</v-col>
+      <v-col class="col-1">{{ headerData[3] }}</v-col>
+      <v-col class="col-1"></v-col>
     </v-row>
   </v-container>
-<!--  <div class="headerWrapper">-->
-<!--    <div-->
-<!--        v-for="caption in headerData"-->
-<!--        :key="caption"-->
-<!--        class="headerEl"-->
-<!--    >-->
-<!--      {{ caption }}-->
-<!--    </div>-->
-<!--  </div>-->
 </template>
 
 <script>
@@ -38,15 +28,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-.headerWrapper {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  justify-items: start;
-  margin-top: 10px;
-}
-
-.headerEl {
-  font-weight: bold;
-}
 </style>

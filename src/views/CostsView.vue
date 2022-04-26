@@ -16,24 +16,29 @@
           </v-card>
         </v-dialog>
         <TableHeader :headerData="getHeaderDataData"/>
-        <TableContent :tableData="this.getStoreTableData"/>
+        <TableContent :tableData="this.filteredTableData"/>
+        <div class="text-center">
+          <v-container>
+            <v-row justify="center">
+              <v-col cols="8">
+                <v-container class="max-width">
+                  <v-pagination
+                      v-model="currentPage"
+                      class="my-4"
+                      :length="getTotalPagesCount"
+                  ></v-pagination>
+                </v-container>
+              </v-col>
+            </v-row>
+          </v-container>
+        </div>
       </v-col>
       <v-col>
         <MyApexchart
-            type="pie" width="380" :options="chartOptions" :series="series">
+            type="pie" width="380" :options="chartOptions" :series="series" ref="myChart">
         </MyApexchart>
       </v-col>
     </v-row>
-    <!--  <button @click="formBtnHandler" class="formBtn">{{ formBtnCaption }}</button>-->
-    <!--  <TableForm v-show="isFormShow" @addData="addData"/>-->
-    <!--  <div>Total cost: {{getTotalCost}}</div>-->
-    <!--  <TableHeader :headerData="getHeaderDataData"/>-->
-    <!--  <TableContent :tableData="filteredTableData"/>-->
-    <!--  <TablePaginator-->
-    <!--      :totalItems="getStoreTableData.length"-->
-    <!--      :pageSize="pageSize"-->
-    <!--      @setPage="setPage"-->
-    <!--  />-->
   </v-container>
 </template>
 
@@ -42,11 +47,9 @@ import TableHeader from "@/components/TableHeader";
 import TableContent from "@/components/TableContent";
 import TableForm from "@/components/TableForm";
 import '../plugins/apexcharts'
-// import TablePaginator from "@/components/TablePaginator";
 export default {
   name: 'App',
   components: {
-    // TablePaginator,
     TableForm,
     TableContent,
     TableHeader
@@ -98,6 +101,9 @@ export default {
     getHeaderDataData() {
       return this.$store.getters.getHeaderData
     },
+    getTotalPagesCount() {
+      return Math.ceil(this.getStoreTableData.length / this.pageSize);
+    }
   },
   methods: {
     formBtnHandler() {
@@ -130,9 +136,28 @@ export default {
       this.series[0] = this.getClothing();
       this.series[1] = this.getTransport();
       this.series[2] = this.getFood();
+      this.$refs.myChart.refresh();
     },
+    fetchData() {
+      const tableData = [];
+
+      for (let i = 0; i < 60; i++) {
+        tableData.push({
+          id: Date.now() + i,
+          date: '08.03.2022',
+          category: 'Food',
+          value: '100'
+        })
+      }
+
+      return tableData;
+    }
   },
-  created() {
+  created () {
+    if (!this.$store.getters.getDataStatus) this.$store.commit('setTableData', this.fetchData());
+    this.$store.commit('setFetchDataStatus',true);
+  },
+  mounted() {
     this.updatePie();
   }
 }

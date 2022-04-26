@@ -1,14 +1,6 @@
 <template>
-  <v-card class="text-left pa-8">
+  <v-card class="text-left pa-8 mt-1">
     <form @submit.prevent="submitForm">
-<!--      <input type="text" v-model.trim="date" class="formEl" placeholder="Date">-->
-<!--      <select v-model="category" class="formEl">-->
-<!--        <option v-for="option in this.$store.getters.getCategoryList" :value="option" :key="option">-->
-<!--          {{ option }}-->
-<!--        </option>-->
-<!--      </select>-->
-<!--      <input type="text" v-model.trim="value" class="formEl" placeholder="Value">-->
-      <!--      <button :disabled="!category || !value" class="saveBtn">Save</button>-->
       <v-text-field v-model.trim="date" label="Date"/>
       <v-select v-model="category" label="Category" :items="this.$store.getters.getCategoryList"/>
       <v-text-field v-model.trim="value" label="Value"/>
@@ -66,7 +58,7 @@ export default {
       this.data = data;
     },
     toCosts() {
-      this.$router.push({ name: 'costs'})
+      this.$router.push({name: 'costs'})
     }
   },
   computed: {
@@ -80,7 +72,6 @@ export default {
     }
   },
   mounted() {
-    /* eslint-disable */
     if (!this.$store.getters.getCategoryList.length) {
       this.$store.dispatch('loadCategories')
     }
@@ -108,7 +99,7 @@ export default {
     if (this.category && this.value) {
       this.handleFormData();
       this.$store.commit('addTableData', this.data)
-      this.$router.push({ name: 'costs'})
+      this.$router.push({name: 'costs'})
     }
   }
 }
@@ -116,27 +107,8 @@ export default {
 
 <style lang="scss" scoped>
 
-.formWrapper {
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.formEl {
-  width: 300px;
-
-  &:not(:first-child) {
-    margin-top: 5px;
-  }
-}
-
 .errorText {
   font-size: 12px;
   color: red;
-}
-
-.saveBtn {
-  margin-top: 10px;
 }
 </style>
