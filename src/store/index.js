@@ -20,7 +20,6 @@ export default new Vuex.Store({
     getDataStatus: state => state.isLoaded
   },
   mutations: {
-    /* eslint-disable */
     setTableData(state, payload) {
       state.tableData = payload;
     },
@@ -46,26 +45,6 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    fetchData({commit}) {
-      return new Promise((resolve) => {
-        setTimeout(() => {
-          const tableData = [];
-          for (let i = 0; i < 10; i++) {
-            tableData.push({
-              id: Date.now() + i,
-              date: '08.03.2022',
-              category: 'Food',
-              value: '100'
-            })
-          }
-          resolve(tableData)
-        }, 0)
-      })
-          .then(res => {
-            commit('setTableData', res);
-            commit('setFetchDataStatus', true)
-          })
-    },
     loadCategories({commit}) {
       return new Promise((resolve) => {
         setTimeout(() => {
